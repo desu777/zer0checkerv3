@@ -1,4 +1,5 @@
 # Zer0 Leaderboard
+![image](https://github.com/user-attachments/assets/83c2f901-2b19-4e7e-82f3-0fe0048c84e5)
 
 A modern, interactive leaderboard application for tracking and displaying user interactions with the Zer0 protocol. This application provides real-time insights into user engagement and protocol usage through an intuitive and responsive interface.
 
