@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Sun, Moon } from 'lucide-react';
 import { useTheme } from '../ThemeContext';
 import { getStyles } from '../styles/leaderboardStyles';
@@ -6,6 +6,17 @@ import { getStyles } from '../styles/leaderboardStyles';
 const Header = () => {
   const { darkMode, toggleTheme } = useTheme();
   const styles = getStyles(darkMode);
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 576);
+  
+  // Add effect to handle window resize
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 576);
+    };
+    
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
   
   // Get theme-appropriate colors for the badge
   const badgeColor = darkMode ? '#00e6e6' : '#E074DD';
@@ -42,17 +53,20 @@ const Header = () => {
             style={{ height: '32px' }}
           />
           <span style={styles.logo}>Checker</span>
-          <span style={{
-            ...styles.badge,
-            fontSize: '14px',
-            backgroundColor: badgeBgColor,
-            color: badgeColor,
-            padding: '2px 8px',
-            borderRadius: '4px',
-            marginLeft: '4px'
-          }}>
-            Testnet V3
-          </span>
+          {/* Only show Testnet V3 badge on non-mobile devices */}
+          {!isMobile && (
+            <span style={{
+              ...styles.badge,
+              fontSize: '14px',
+              backgroundColor: badgeBgColor,
+              color: badgeColor,
+              padding: '2px 8px',
+              borderRadius: '4px',
+              marginLeft: '4px'
+            }}>
+              Testnet V3
+            </span>
+          )}
         </div>
       </div>
       
